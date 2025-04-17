@@ -1,0 +1,151 @@
+:root {
+    --text-color: #ffffff;
+    --dialogue-bg: rgba(0, 0, 0, 0.8);
+    --accent-color: #ff69b4;
+    --font-main: 'Arial', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    overflow: hidden;
+    background: #000;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+#visual-novel {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#scene {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 0.5s ease;
+}
+
+#characters {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.character {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    max-height: 90%;
+    position: absolute;
+}
+
+#ui {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+}
+
+#dialogue-box {
+    background: var(--dialogue-bg);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+#speaker {
+    font-weight: bold;
+    color: var(--accent-color);
+    margin-bottom: 8px;
+}
+
+#text {
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+#continue-indicator {
+    text-align: right;
+    animation: bounce 0.8s infinite;
+}
+
+#choices {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.choice-button {
+    background: var(--dialogue-bg);
+    color: var(--text-color);
+    border: 2px solid var(--accent-color);
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.choice-button:hover {
+    background-color: var(--accent-color);
+}
+
+#controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+#controls button {
+    background: var(--dialogue-bg);
+    color: var(--text-color);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@media (max-width: 768px) {
+    #dialogue-box {
+        padding: 15px;
+        font-size: 14px;
+    }
+
+    #controls {
+        top: 10px;
+        right: 10px;
+    }
+
+    #controls button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+} 
