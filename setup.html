@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story - Setup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Our Story - Visual Novel Setup</h1>
+    
+    <div class="section">
+        <h2>1. Create Directory Structure</h2>
+        <p>First, create these folders in your project:</p>
+        <pre>
+assets/
+├── images/
+│   └── placeholder/
+├── audio/
+└── fonts/
+        </pre>
+        <p>You can copy and run these commands in Command Prompt (not PowerShell):</p>
+        <pre>
+mkdir assets
+mkdir assets\images
+mkdir assets\images\placeholder
+mkdir assets\audio
+mkdir assets\fonts
+        </pre>
+    </div>
+
+    <div class="section">
+        <h2>2. Download Placeholder Assets</h2>
+        <p>Click each button to download the placeholder assets:</p>
+        
+        <h3>Character Images:</h3>
+        <button onclick="downloadImage('me')">Download Me Avatar</button>
+        <button onclick="downloadImage('girlfriend')">Download Girlfriend Avatar</button>
+        <button onclick="downloadImage('girlfriend-happy')">Download Girlfriend Happy</button>
+        <button onclick="downloadImage('girlfriend-surprised')">Download Girlfriend Surprised</button>
+        
+        <h3>Background:</h3>
+        <button onclick="downloadBackground()">Download Background Image</button>
+        
+        <h3>Audio:</h3>
+        <button onclick="downloadAudio('bgm')">Download Background Music</button>
+        <button onclick="downloadAudio('click')">Download Click Sound</button>
+        
+        <div id="status" class="status">Status: Ready to start</div>
+    </div>
+
+    <div class="section">
+        <h2>3. Next Steps</h2>
+        <ol>
+            <li>Move all downloaded files to their respective folders:
+                <ul>
+                    <li>Move .png files to assets/images/placeholder/</li>
+                    <li>Move .mp3 files to assets/audio/</li>
+                </ul>
+            </li>
+            <li>Replace placeholder images with your own photos</li>
+            <li>Add your preferred background music</li>
+            <li>Start the visual novel by opening index.html</li>
+        </ol>
+    </div>
+
+    <script>
+        const status = document.getElementById('status');
+
+        async function downloadImage(type) {
+            status.textContent = `Downloading ${type} avatar...`;
+            
+            const seed = type.includes('girlfriend') ? 'Lily' : 'Felix';
+            const mouth = type.includes('happy') ? 'smile' : 
+                         type.includes('surprised') ? 'concerned' : '';
+            
+            try {
+                const response = await fetch(`https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}${mouth ? '&mouth=' + mouth : ''}`);
+                const blob = await response.blob();
+                
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `${type}.png`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                status.textContent = `Successfully downloaded ${type}.png`;
+            } catch (error) {
+                status.textContent = `Error downloading ${type}: ${error}`;
+            }
+        }
+
+        async function downloadBackground() {
+            status.textContent = 'Downloading background image...';
+            
+            try {
+                const response = await fetch('https://picsum.photos/1920/1080');
+                const blob = await response.blob();
+                
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'first-meeting.jpg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                status.textContent = 'Successfully downloaded first-meeting.jpg';
+            } catch (error) {
+                status.textContent = `Error downloading background: ${error}`;
+            }
+        }
+
+        async function downloadAudio(type) {
+            status.textContent = `Downloading ${type} audio...`;
+            
+            const url = type === 'bgm' 
+                ? 'https://www.chosic.com/wp-content/uploads/2021/04/Beautiful-Piano-Loop.mp3'
+                : 'https://www.soundjay.com/button/button-1.mp3';
+            const filename = type === 'bgm' ? 'romantic-bgm.mp3' : 'click.mp3';
+            
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                status.textContent = `Successfully downloaded ${filename}`;
+            } catch (error) {
+                status.textContent = `Error downloading ${type} audio: ${error}`;
+            }
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story - A Year of Love</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="visual-novel">
+        <div id="scene">
+            <div id="background"></div>
+            <div id="characters"></div>
+        </div>
+        
+        <div id="ui">
+            <div id="dialogue-box">
+                <div id="speaker"></div>
+                <div id="text"></div>
+                <div id="continue-indicator">▼</div>
+            </div>
+            
+            <div id="choices" class="hidden"></div>
+        </div>
+
+        <div id="controls">
+            <button id="auto">Auto</button>
+            <button id="skip">Skip</button>
+            <button id="save">Save</button>
+            <button id="load">Load</button>
+            <button id="settings">⚙️</button>
+        </div>
+    </div>
+
+    <script type="module" src="dist/js/engine.js"></script>
+</body>
+</html> 
